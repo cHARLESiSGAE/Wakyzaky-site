@@ -12,7 +12,6 @@
       --bg1:#070B18;
       --text:#EEF5FF;
       --muted: rgba(238,245,255,0.74);
-      --muted2: rgba(238,245,255,0.60);
       --accent:#D6FF2A;
       --blue:#3B82F6;
       --shadow: 0 18px 60px rgba(0,0,0,0.58);
@@ -35,11 +34,11 @@
 
     a{color:inherit; text-decoration:none}
 
-    /* Meme stickers (lighter than homepage so it stays readable) */
-    .meme-layer{position:fixed; inset:0; pointer-events:none; z-index:2; opacity:0.65;}
-    .sticker{position:absolute; width: clamp(80px, 11vw, 190px); height:auto; border-radius: 16px; border:1px solid rgba(238,245,255,0.14);
-      box-shadow: 0 18px 70px rgba(0,0,0,0.45); filter: saturate(1.05) contrast(1.02);
-      transform: rotate(var(--rot, 0deg)); opacity: var(--op, 0.35); mix-blend-mode: screen;
+    /* More images on this page (per request) */
+    .meme-layer{position:fixed; inset:0; pointer-events:none; z-index:2; opacity:0.80;}
+    .sticker{position:absolute; width: clamp(90px, 13vw, 230px); height:auto; border-radius: 16px; border:1px solid rgba(238,245,255,0.14);
+      box-shadow: 0 18px 70px rgba(0,0,0,0.45); filter: saturate(1.08) contrast(1.03);
+      transform: rotate(var(--rot, 0deg)); opacity: var(--op, 0.28); mix-blend-mode: screen;
       animation: floatSticker var(--dur, 8s) ease-in-out infinite;
     }
     @keyframes floatSticker{0%,100%{transform:translate3d(0,0,0) rotate(var(--rot, 0deg));} 50%{transform:translate3d(0,-10px,0) rotate(calc(var(--rot, 0deg) + 2deg));} }
@@ -52,6 +51,7 @@
     }
     .nav-inner{max-width: var(--max); margin:0 auto; padding: 14px var(--pad); display:flex; align-items:center; justify-content:space-between; gap:12px;}
     .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:0.2px;}
+
     .badge{width:36px;height:36px;border-radius:12px;background:
       radial-gradient(circle at 30% 30%, rgba(59,130,246,0.75), rgba(59,130,246,0.10)),
       radial-gradient(circle at 70% 70%, rgba(214,255,42,0.65), rgba(214,255,42,0.10));
@@ -97,6 +97,18 @@
     h1{margin:0; font-size: clamp(26px, 3.3vw, 40px); letter-spacing:-0.6px;}
     p{color: var(--muted); line-height:1.7; margin: 10px 0 0;}
 
+    .flag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(238,245,255,0.12);
+      background: rgba(255,255,255,0.04);
+      width: fit-content;
+    }
+
     .grid{display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;}
     @media (max-width: 900px){ .grid{grid-template-columns:1fr;} }
 
@@ -124,17 +136,6 @@
     .pill.blue{border-color: rgba(59,130,246,0.35); background: rgba(59,130,246,0.10);} 
     .pill.neon{border-color: rgba(214,255,42,0.38); background: rgba(214,255,42,0.10);} 
 
-    .note{
-      margin-top: 14px;
-      border-radius: 16px;
-      border: 1px dashed rgba(238,245,255,0.18);
-      padding: 14px;
-      color: rgba(238,245,255,0.74);
-      font-size: 13px;
-      line-height: 1.6;
-      background: rgba(255,255,255,0.03);
-    }
-
     footer{margin-top: 18px; color: rgba(238,245,255,0.60); font-size: 13px;}
 
     @media (prefers-reduced-motion: reduce){
@@ -161,10 +162,26 @@
     <section class="hero" aria-label="Israeli Identity">
       <h1>Israeli Identity</h1>
       <p>
-        This page is dedicated to Zak’s Israeli identity — a space to celebrate heritage, community, and the traditions and values that shape who he is.
+        This page is dedicated to Zak’s Israeli identity — celebrating heritage, culture, and the community that shapes who he is.
       </p>
-      <p>
-        It’s proud, personal, and respectful — without turning the site into a comment-section argument.
+
+      <!-- Israeli flag (inline SVG) -->
+      <div class="flag" aria-label="Israeli flag">
+        <svg width="86" height="56" viewBox="0 0 86 56" role="img" aria-label="Flag of Israel">
+          <rect width="86" height="56" fill="#ffffff" />
+          <rect y="6" width="86" height="8" fill="#1e4db7" />
+          <rect y="42" width="86" height="8" fill="#1e4db7" />
+          <!-- Star of David (simple lines) -->
+          <g stroke="#1e4db7" stroke-width="2.2" fill="none" transform="translate(43 28)">
+            <path d="M0,-13 L11,6 L-11,6 Z" />
+            <path d="M0,13 L11,-6 L-11,-6 Z" />
+          </g>
+        </svg>
+        <span style="color:rgba(238,245,255,0.82);font-size:13px;">Israeli flag</span>
+      </div>
+
+      <p style="margin-top:12px;">
+        <strong>Values:</strong> resilience and community.
       </p>
     </section>
 
@@ -172,38 +189,37 @@
       <article class="card reveal">
         <h2>What it means to him</h2>
         <ul>
-          <li><strong>Heritage:</strong> [Add a short, personal paragraph in Zak’s voice]</li>
-          <li><strong>Community:</strong> [Family traditions / community moments placeholder]</li>
-          <li><strong>Values:</strong> [Resilience / learning / kindness / teamwork placeholder]</li>
+          <li><strong>Heritage:</strong> proud of where he comes from</li>
+          <li><strong>Community:</strong> showing up for people and staying connected</li>
+          <li><strong>Values:</strong> resilience + community</li>
         </ul>
         <div class="pillrow">
           <span class="pill blue">heritage</span>
           <span class="pill blue">community</span>
-          <span class="pill blue">pride</span>
+          <span class="pill blue">resilience</span>
         </div>
       </article>
 
       <article class="card reveal">
         <h2>Culture & traditions</h2>
         <ul>
-          <li><strong>Food:</strong> [Favorite foods placeholder]</li>
-          <li><strong>Music:</strong> [Artists/songs that connect to identity placeholder]</li>
-          <li><strong>Holidays:</strong> [Holiday traditions placeholder]</li>
+          <li><strong>Holiday:</strong> Hanukkah</li>
+          <li><strong>Favorite food:</strong> fried chicken</li>
+          <li><strong>Israeli song:</strong> Hava Nagila</li>
         </ul>
         <div class="pillrow">
-          <span class="pill neon">family</span>
           <span class="pill neon">tradition</span>
+          <span class="pill neon">family</span>
           <span class="pill neon">celebration</span>
         </div>
       </article>
 
       <article class="card reveal" style="grid-column:1/-1;">
-        <h2>Gallery (optional)</h2>
-        <ul>
-          <li>Add photos that are comfortable to share publicly: family events, cultural celebrations, or non-sensitive memorabilia.</li>
-          <li>Avoid posting private details (home address, school, schedules).</li>
-        </ul>
-        <div class="note">Want me to add a photo grid here too? Upload more images into <code>/assets</code> and I’ll wire it in.</div>
+        <h2>More pictures (because yes)</h2>
+        <p>We removed the gallery from the main site, but this page still gets extra visuals.</p>
+        <p style="margin-top:10px;color:rgba(238,245,255,0.62);font-size:13px;line-height:1.6;">
+          Note: I’m not adding political-figure endorsements for a minor.
+        </p>
       </article>
     </section>
 
@@ -226,39 +242,31 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => io.observe(el));
 
-    // Light meme stickers on this page too
-    (function memeStickers(){
+    // Sticker layer: lots of images on this page (only meme image #2)
+    (function stickers(){
       const layer = document.getElementById('memeLayer');
       if (!layer) return;
 
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce) return;
 
-      const sources = [
-        'assets/650269793_1331295399036239_2931007642928594930_n.png',
-        'assets/652863284_1400547025177962_2320655237684033690_n.png'
-      ];
+      const src = 'assets/652863284_1400547025177962_2320655237684033690_n.png';
+      const stickerCount = 16;
 
-      const stickerCount = 8;
       function rand(min, max){ return Math.random() * (max - min) + min; }
 
       for (let i=0; i<stickerCount; i++){
         const img = document.createElement('img');
         img.className = 'sticker';
-        img.src = sources[i % sources.length];
+        img.src = src;
         img.alt = '';
 
-        // Edge-biased positioning
-        const side = Math.floor(rand(0, 4));
-        let x=0, y=0;
-        if (side === 0){ x = rand(6, 86); y = rand(0, 12); }
-        else if (side === 1){ x = rand(82, 96); y = rand(6, 92); }
-        else if (side === 2){ x = rand(6, 86); y = rand(84, 96); }
-        else { x = rand(0, 14); y = rand(6, 92); }
-
-        const rot = rand(-10, 10).toFixed(2);
-        const dur = rand(7.0, 12.0).toFixed(2);
-        const op = rand(0.18, 0.42).toFixed(2);
+        // Spread across the whole page
+        const x = rand(0, 92);
+        const y = rand(0, 92);
+        const rot = rand(-12, 12).toFixed(2);
+        const dur = rand(7.5, 12.5).toFixed(2);
+        const op = rand(0.16, 0.36).toFixed(2);
 
         img.style.left = x + 'vw';
         img.style.top = y + 'vh';
