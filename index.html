@@ -3,10 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Wakyzaky — Music, Pickleball, and Israeli Identity | Prosper, TX" />
-  <title>Wakyzaky | Music • Pickleball • Israeli Identity</title>
+  <meta name="description" content="Wakyzaky (Zak) — Music, Pickleball, and Israeli Identity | Prosper, TX" />
+  <title>Wakyzaky (Zak) | Music • Pickleball • Israeli Identity</title>
 
   <style>
+    /* =========================================================
+       VIBE UPDATE (per request)
+       - Less "corporate profile"
+       - More "about Zak" energy
+       - Still cool + readable + animated
+       - Meme layer: pictures everywhere (subtle motion)
+    ========================================================= */
+
     :root{
       --bg0:#05070E;
       --bg1:#070B18;
@@ -17,7 +25,7 @@
 
       --accent:#D6FF2A;     /* neon yellow */
       --accent2:#9BFF1F;
-      --blue:#3B82F6;       /* subtle nod: clean blue accent for Israel page link */
+      --blue:#3B82F6;
       --teal:#14B8A6;
       --purple:#8B5CF6;
 
@@ -45,8 +53,41 @@
     img{max-width:100%; display:block}
     code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
+    /* =========================================================
+       MEME LAYER (pictures everywhere)
+       - Fixed-position stickers
+       - Drift + spin + parallax-ish hover
+       - aria-hidden in HTML
+       NOTE: You can tune density by changing --stickerCount in JS.
+    ========================================================= */
+    .meme-layer{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:2;
+      opacity:0.90;
+    }
+    .sticker{
+      position:absolute;
+      width: clamp(90px, 12vw, 220px);
+      height:auto;
+      border-radius: 16px;
+      border: 1px solid rgba(238,245,255,0.14);
+      box-shadow: 0 18px 70px rgba(0,0,0,0.45);
+      filter: saturate(1.08) contrast(1.03);
+      transform: translate3d(0,0,0) rotate(var(--rot, 0deg));
+      opacity: var(--op, 0.55);
+      mix-blend-mode: screen; /* meme-glow look */
+      animation: floatSticker var(--dur, 8s) ease-in-out infinite;
+      will-change: transform;
+    }
+    @keyframes floatSticker{
+      0%,100% { transform: translate3d(0,0,0) rotate(var(--rot, 0deg)); }
+      50%     { transform: translate3d(0, -10px, 0) rotate(calc(var(--rot, 0deg) + 2deg)); }
+    }
+
     /* Decorative background motifs */
-    .bg-motifs{position:fixed; inset:0; pointer-events:none; opacity:0.6; z-index:0;}
+    .bg-motifs{position:fixed; inset:0; pointer-events:none; opacity:0.55; z-index:0;}
     .motif{position:absolute; border-radius:999px; animation: drift 20s linear infinite; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.2));}
     .motif.dot{width:10px;height:10px; background: radial-gradient(circle at 35% 35%, rgba(214,255,42,0.85), rgba(214,255,42,0.12)); box-shadow:0 0 0 1px rgba(238,245,255,0.06); animation-duration:18s;}
     .motif.note{width:22px;height:10px; background: linear-gradient(135deg, rgba(214,255,42,0.45), rgba(20,184,166,0.10)); border:1px solid rgba(238,245,255,0.10); animation-duration:24s;}
@@ -58,14 +99,14 @@
     /* Nav */
     .nav{position:sticky; top:0; z-index:10; backdrop-filter: blur(14px); background: rgba(5,7,14,0.58); border-bottom: 1px solid rgba(238,245,255,0.10);}
     .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px var(--pad); max-width:var(--max); margin:0 auto;}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:0.2px;}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:0.2px;}
     .brand-badge{width:36px;height:36px;border-radius:12px;background:
       radial-gradient(circle at 30% 30%, rgba(214,255,42,0.95), rgba(214,255,42,0.10)),
       radial-gradient(circle at 70% 70%, rgba(20,184,166,0.55), rgba(139,92,246,0.10));
       box-shadow:0 14px 40px rgba(214,255,42,0.10);
       animation: badgePulse 5s ease-in-out infinite;
     }
-    @keyframes badgePulse{0%,100%{transform:scale(1); filter:saturate(1);} 50%{transform:scale(1.04); filter:saturate(1.2);} }
+    @keyframes badgePulse{0%,100%{transform:scale(1); filter:saturate(1);} 50%{transform:scale(1.06); filter:saturate(1.25);} }
 
     .nav-links{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
     .nav a{display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; color: rgba(238,245,255,0.78); border: 1px solid transparent;
@@ -76,7 +117,7 @@
     .nav a.israel{border-color: rgba(59,130,246,0.35); background: rgba(59,130,246,0.10);} /* subtle highlight */
 
     /* Hero */
-    .hero{padding: clamp(32px, 5vw, 72px) 0 22px;}
+    .hero{padding: clamp(26px, 4.8vw, 64px) 0 16px;}
     .hero-grid{display:grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(18px,3vw,28px); align-items:stretch;}
     @media (max-width: 900px){ .hero-grid{grid-template-columns:1fr;} }
 
@@ -97,12 +138,12 @@
     }
     @keyframes dotBounce{0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
 
-    h1{margin:14px 0 10px; font-size: clamp(30px, 4.2vw, 54px); line-height:1.02; letter-spacing:-0.6px;}
-    .sub{margin:0; font-size: clamp(15px, 1.45vw, 18px); color: var(--muted); line-height:1.65; max-width: 68ch;}
+    h1{margin:14px 0 10px; font-size: clamp(30px, 4.2vw, 56px); line-height:1.02; letter-spacing:-0.8px;}
+    .sub{margin:0; font-size: clamp(15px, 1.45vw, 18px); color: var(--muted); line-height:1.65; max-width: 70ch;}
 
     .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; align-items:center;}
     .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:12px 14px; border-radius:14px; border:1px solid rgba(238,245,255,0.14);
-      background: rgba(255,255,255,0.06); color: rgba(238,245,255,0.92); font-weight: 720; cursor:pointer; user-select:none;
+      background: rgba(255,255,255,0.06); color: rgba(238,245,255,0.92); font-weight: 780; cursor:pointer; user-select:none;
       transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
     .btn:hover{transform:translateY(-1px); background: rgba(255,255,255,0.085); border-color: rgba(238,245,255,0.18); box-shadow: 0 14px 35px rgba(0,0,0,0.25);}
@@ -123,7 +164,7 @@
       transform: translateX(-40%) rotate(12deg); animation: sheen 7.5s ease-in-out infinite; pointer-events:none;}
     @keyframes sheen{0%,55%{transform:translateX(-60%) rotate(12deg);opacity:0} 70%{opacity:1} 100%{transform:translateX(80%) rotate(12deg);opacity:0} }
 
-    .hero-img{width:100%; height:100%; object-fit:cover; aspect-ratio: 4 / 5; filter: contrast(1.03) saturate(1.05);}
+    .hero-img{width:100%; height:100%; object-fit:cover; aspect-ratio: 4 / 5; filter: contrast(1.05) saturate(1.08);}
 
     .float-chip{position:absolute; display:flex; gap:10px; align-items:center; padding:10px 12px; border-radius:999px; border:1px solid rgba(238,245,255,0.12);
       background: rgba(5,7,14,0.45); backdrop-filter: blur(12px); box-shadow: 0 14px 40px rgba(0,0,0,0.45); color: rgba(238,245,255,0.86);
@@ -132,17 +173,48 @@
     .float-chip.two{bottom:16px; right:16px; animation-delay:0.6s;}
     @keyframes floaty{0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
 
+    /* Marquee-ish meme strip */
+    .meme-strip{
+      margin: 18px 0 0;
+      border: 1px solid rgba(238,245,255,0.12);
+      border-radius: 16px;
+      overflow:hidden;
+      background: rgba(255,255,255,0.04);
+    }
+    .meme-strip .track{
+      display:flex;
+      gap: 16px;
+      align-items:center;
+      white-space:nowrap;
+      padding: 10px 12px;
+      animation: scroll 18s linear infinite;
+    }
+    @keyframes scroll{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(238,245,255,0.14);
+      background: rgba(255,255,255,0.05);
+      font-size: 12px;
+      color: rgba(238,245,255,0.88);
+    }
+    .tag b{color: rgba(238,245,255,0.95)}
+
     /* Sections */
-    section{padding: 28px 0;}
+    section{padding: 26px 0;}
     .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:14px;}
     h2{margin:0; font-size: clamp(22px, 2.5vw, 30px); letter-spacing:-0.3px;}
     .lead{margin:0; color: var(--muted); line-height:1.65; max-width:76ch; font-size:15px;}
 
     .grid{display:grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap:14px;}
     .card{grid-column: span 6; border-radius: var(--radius); border:1px solid rgba(238,245,255,0.12); background: rgba(255,255,255,0.05); padding:16px; box-shadow: 0 14px 50px rgba(0,0,0,0.25);
-      transform: translateY(10px); opacity:0; transition: transform .55s ease, opacity .55s ease, background .18s ease;}
+      transform: translateY(10px); opacity:0; transition: transform .55s ease, opacity .55s ease, background .18s ease; position:relative; overflow:hidden;}
     .card.in{transform: translateY(0); opacity:1;}
     .card:hover{background: rgba(255,255,255,0.065);}
+
     .card h3{margin:0 0 8px; font-size:18px; letter-spacing:-0.2px;}
     .card p{margin:0 0 10px; color: var(--muted); line-height:1.68; font-size:14px;}
     .card ul{margin:0; padding-left:18px; color: rgba(238,245,255,0.80);}
@@ -175,11 +247,18 @@
 
     footer{padding: 30px 0 60px; border-top: 1px solid rgba(238,245,255,0.10); margin-top:18px; color: rgba(238,245,255,0.65); font-size:13px;}
 
-    @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important; scroll-behavior:auto !important;} .card,.shot{opacity:1 !important; transform:none !important;} }
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+      .card,.shot{opacity:1 !important; transform:none !important;}
+      .meme-layer{display:none !important;}
+    }
   </style>
 </head>
 
 <body>
+  <!-- Meme stickers everywhere (generated by JS) -->
+  <div id="memeLayer" class="meme-layer" aria-hidden="true"></div>
+
   <div class="bg-motifs" aria-hidden="true">
     <div class="motif dot"  style="top:18%;left:12%;"></div>
     <div class="motif note" style="top:28%;left:78%;"></div>
@@ -196,14 +275,14 @@
       <div class="nav-inner">
         <a class="brand" href="#top" aria-label="Go to top">
           <span class="brand-badge" aria-hidden="true"></span>
-          <span>Wakyzaky</span>
+          <span>Wakyzaky <span style="opacity:.65;font-weight:800;">(aka Zak)</span></span>
         </a>
         <nav class="nav-links" aria-label="Primary">
-          <a href="#about">About</a>
+          <a href="#about">About Zak</a>
           <a href="#hobbies">Hobbies</a>
-          <a href="#achievements">Achievements</a>
-          <a href="#gallery">Gallery</a>
-          <a class="israel" href="israel.html" aria-label="Open Israeli Identity page">Israeli Identity</a>
+          <a href="#achievements">Wins</a>
+          <a href="#gallery">Pics</a>
+          <a class="israel" href="israel.html">Israeli Identity</a>
           <a href="#contact">Contact</a>
         </nav>
       </div>
@@ -214,17 +293,19 @@
         <div class="hero-grid">
           <div class="hero-card">
             <div class="hero-content">
-              <div class="kicker"><span class="dot" aria-hidden="true"></span><span>Prosper, TX • Guitar • Pickleball competitor</span></div>
-              <h1>Music. Pickleball. Identity. All in one place.</h1>
+              <div class="kicker"><span class="dot" aria-hidden="true"></span><span>Prosper, TX • Guitar • Pickleball • Meme Energy</span></div>
+
+              <h1>Welcome to Zak lore.</h1>
               <p class="sub">
-                Wakyzaky is a <strong>14-year-old</strong> from <strong>Prosper</strong> who loves <strong>guitar</strong> and <strong>pickleball</strong>.
-                This site highlights his hobbies, achievements, and a dedicated page for his <strong>Israeli identity</strong>.
+                This is the official-unofficial-about-Zak website.
+                He’s <strong>14</strong>, lives in <strong>Prosper</strong>, plays <strong>guitar</strong>, and is dangerously capable at <strong>pickleball</strong>.
+                Also: yes, this site is intentionally a little unhinged.
               </p>
 
               <div class="hero-actions">
-                <a class="btn primary" href="#about"><span aria-hidden="true">✦</span><span>Start Here</span></a>
+                <a class="btn primary" href="#about"><span aria-hidden="true">✦</span><span>Tell me more</span></a>
                 <a class="btn blue" href="israel.html"><span aria-hidden="true">✦</span><span>Israeli Identity</span></a>
-                <a class="btn" href="#contact"><span aria-hidden="true">✉</span><span>Contact</span></a>
+                <a class="btn" href="#gallery"><span aria-hidden="true">🖼</span><span>Go to pics</span></a>
               </div>
 
               <div class="stats" aria-label="Highlights">
@@ -232,58 +313,86 @@
                 <div class="stat"><b>Music focus</b><span><strong>Guitar</strong> • learning new songs + improving tone</span></div>
                 <div class="stat"><b>Favorite artist</b><span><strong>Chloe Adams</strong></span></div>
               </div>
+
+              <!-- Animated meme strip (scrolling tags) -->
+              <div class="meme-strip" aria-label="Meme strip">
+                <div class="track">
+                  <span class="tag"><b>NEON</b> ENERGY</span>
+                  <span class="tag"><b>GUITAR</b> MODE</span>
+                  <span class="tag"><b>PICKLEBALL</b> SWEAT</span>
+                  <span class="tag"><b>PROSPER</b> TX</span>
+                  <span class="tag"><b>ZAK</b> LORE</span>
+                  <span class="tag"><b>NEON</b> ENERGY</span>
+                  <span class="tag"><b>GUITAR</b> MODE</span>
+                  <span class="tag"><b>PICKLEBALL</b> SWEAT</span>
+                  <span class="tag"><b>PROSPER</b> TX</span>
+                  <span class="tag"><b>ZAK</b> LORE</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <aside class="portrait" aria-label="Profile image panel">
+          <aside class="portrait" aria-label="Main image panel">
             <div class="float-chip one" aria-hidden="true"><span style="color:var(--accent);font-weight:800;">♫</span><span>Guitar mode</span></div>
             <div class="float-chip two" aria-hidden="true"><span style="color:var(--accent);font-weight:800;">●</span><span>Pickleball mode</span></div>
             <div class="frame">
-              <!-- Replace this with the real image files once uploaded -->
-              <img class="hero-img" src="assets/wakyzaky-hero.svg" alt="Wakyzaky hero image" />
+              <!-- Using your uploaded meme image as the hero.
+                   If you upload more images, we can rotate between them. -->
+              <img class="hero-img" src="assets/650269793_1331295399036239_2931007642928594930_n.png" alt="Wakyzaky hero image" />
             </div>
           </aside>
         </div>
       </section>
 
-      <section id="about" aria-label="About">
+      <section id="about" aria-label="About Zak">
         <div class="section-head">
           <div>
-            <h2>About</h2>
-            <p class="lead">A quick overview of who Wakyzaky is, what he’s into, and what he’s working toward.</p>
+            <h2>About Zak</h2>
+            <p class="lead">Short version: skilled. Loud (in a good way). Neon-adjacent. Surprisingly disciplined when it matters.</p>
           </div>
         </div>
 
         <div class="grid">
           <article class="card reveal">
-            <h3>Background</h3>
-            <p>Wakyzaky is a 14-year-old from Prosper who balances creativity (music) with competition (pickleball). He’s consistent, focused, and keeps improving.</p>
+            <h3>Origin story (the respectful version)</h3>
+            <p>Zak (Wakyzaky) is 14 and based in Prosper. He’s into music, sports, and generally being the main character of the group chat.</p>
             <ul>
-              <li><strong>Home base:</strong> Prosper, TX</li>
-              <li><strong>Main hobbies:</strong> Guitar • Pickleball</li>
-              <li><strong>Identity:</strong> Israeli identity page included</li>
+              <li><strong>Location:</strong> Prosper, TX</li>
+              <li><strong>Known for:</strong> Guitar + pickleball + vibes</li>
+              <li><strong>Contact:</strong> wakyzaky@wakyzakyzaky.com</li>
             </ul>
+            <div class="pillrow">
+              <span class="pill neon">main character</span>
+              <span class="pill neon">practice pays</span>
+              <span class="pill neon">neon aura</span>
+            </div>
           </article>
 
           <article class="card reveal">
-            <h3>What he’s like</h3>
-            <p>Positive energy, real focus. Wakyzaky brings a friendly vibe — and still takes his goals seriously.</p>
+            <h3>What he’s actually good at</h3>
+            <p>He’s not just “random hobbies” good — he’s “results and progress” good.</p>
+            <ul>
+              <li><strong>Pickleball:</strong> 5th place at the PPA Texas Open</li>
+              <li><strong>Guitar:</strong> putting in reps, learning songs, getting cleaner</li>
+              <li><strong>Confidence:</strong> high (but earned)</li>
+            </ul>
             <div class="pillrow">
-              <span class="pill neon">Driven</span>
-              <span class="pill neon">Creative</span>
-              <span class="pill neon">Team-minded</span>
-              <span class="pill neon">Curious</span>
+              <span class="pill neon">clutch</span>
+              <span class="pill neon">consistent</span>
+              <span class="pill neon">locked in</span>
             </div>
-            <p style="margin-top:10px;"><strong>Current theme:</strong> “Practice that looks small becomes results that look big.”</p>
           </article>
 
           <article class="card wide reveal">
-            <h3>At a glance</h3>
-            <ul>
-              <li><strong>Music:</strong> Guitar • inspired by Chloe Adams</li>
-              <li><strong>Pickleball:</strong> 5th place at the PPA Texas Open</li>
-              <li><strong>Contact:</strong> wakyzaky@wakyzakyzaky.com</li>
-            </ul>
+            <h3>Important page</h3>
+            <p>
+              This site includes a dedicated page about Zak’s <strong>Israeli identity</strong> — written to be proud and personal without turning into a debate.
+            </p>
+            <div class="pillrow">
+              <span class="pill blue">heritage</span>
+              <span class="pill blue">community</span>
+              <span class="pill blue">pride</span>
+            </div>
           </article>
         </div>
       </section>
@@ -292,24 +401,24 @@
         <div class="section-head">
           <div>
             <h2>Hobbies</h2>
-            <p class="lead">Two passions that keep him sharp: rhythm on guitar and strategy on the court.</p>
+            <p class="lead">The two pillars: music (guitar) and pickleball (rallies that last forever).</p>
           </div>
         </div>
 
         <div class="grid">
           <article class="card reveal">
             <h3>Music (Guitar)</h3>
-            <p>Guitar is Wakyzaky’s creative zone — where he can lock in, experiment with sound, and level up song by song.</p>
+            <p>Guitar is the creative lab. Tone chasing. Song learning. Occasional dramatic strum.</p>
             <ul>
               <li><strong>Instrument:</strong> Guitar</li>
               <li><strong>Inspired by:</strong> Chloe Adams</li>
-              <li><strong>Working on:</strong> [Song list placeholder] • [Technique placeholder]</li>
+              <li><strong>Currently:</strong> [Add song list] • [Add technique]</li>
             </ul>
           </article>
 
           <article class="card reveal">
             <h3>Pickleball</h3>
-            <p>Pickleball is where Wakyzaky brings the energy — quick reactions, smart shot choices, and staying calm in tight points.</p>
+            <p>Speed, strategy, and staying calm when the point gets weird.</p>
             <ul>
               <li><strong>Achievement:</strong> 5th place — PPA Texas Open</li>
               <li><strong>Strengths:</strong> [Serve] • [Dinks] • [Volleys]</li>
@@ -318,7 +427,7 @@
           </article>
 
           <article class="card wide reveal">
-            <h3>How music & sports connect</h3>
+            <h3>Why this combo works</h3>
             <ul>
               <li><strong>Rhythm → consistency</strong> (repeatable form)</li>
               <li><strong>Listening → anticipation</strong> (pattern recognition)</li>
@@ -328,11 +437,11 @@
         </div>
       </section>
 
-      <section id="achievements" aria-label="Achievements">
+      <section id="achievements" aria-label="Wins">
         <div class="section-head">
           <div>
-            <h2>Achievements</h2>
-            <p class="lead">Highlights and milestones — with room to grow.</p>
+            <h2>Wins</h2>
+            <p class="lead">The receipts.</p>
           </div>
         </div>
 
@@ -349,36 +458,36 @@
             <h3>Music</h3>
             <ul>
               <li><strong>Guitar milestone:</strong> [Achievement placeholder]</li>
-              <li><strong>Next project:</strong> [Record/perform placeholder]</li>
+              <li><strong>Next:</strong> [Record/perform placeholder]</li>
             </ul>
           </article>
 
           <article class="card third reveal">
             <h3>Personal</h3>
             <ul>
-              <li><strong>Consistency:</strong> weekly practice mindset</li>
-              <li><strong>Composure:</strong> staying calm under pressure</li>
+              <li><strong>Consistency:</strong> weekly reps</li>
+              <li><strong>Composure:</strong> pressure doesn’t win</li>
             </ul>
           </article>
         </div>
       </section>
 
-      <section id="gallery" aria-label="Gallery">
+      <section id="gallery" aria-label="Pics">
         <div class="section-head">
           <div>
-            <h2>Gallery</h2>
-            <p class="lead">Replace placeholders with the real photos when you drop them into <code>/assets</code>.</p>
+            <h2>Pics</h2>
+            <p class="lead">Yes, there are pictures everywhere. This section is the “organized” version.</p>
           </div>
         </div>
 
         <div class="gallery">
           <figure class="shot reveal">
-            <img src="assets/wakyzaky-1.svg" alt="Gallery image 1" />
-            <figcaption class="cap">Photo 1 — [caption placeholder]</figcaption>
+            <img src="assets/650269793_1331295399036239_2931007642928594930_n.png" alt="Gallery image 1" />
+            <figcaption class="cap">Meme image #1</figcaption>
           </figure>
           <figure class="shot reveal">
-            <img src="assets/wakyzaky-2.svg" alt="Gallery image 2" />
-            <figcaption class="cap">Photo 2 — [caption placeholder]</figcaption>
+            <img src="assets/652863284_1400547025177962_2320655237684033690_n.png" alt="Gallery image 2" />
+            <figcaption class="cap">Meme image #2</figcaption>
           </figure>
         </div>
       </section>
@@ -387,21 +496,22 @@
         <div class="section-head">
           <div>
             <h2>Contact</h2>
-            <p class="lead">Fast and simple.</p>
+            <p class="lead">If you need Zak for guitar stuff, pickleball stuff, or general Zak stuff.</p>
           </div>
         </div>
 
         <div class="grid">
           <article class="card wide reveal">
             <h3>Get in touch</h3>
-            <p>For music collaborations, pickleball invites, or general questions:</p>
             <div class="contact-row">
               <a class="contact-chip" href="mailto:wakyzaky@wakyzakyzaky.com">
                 <span aria-hidden="true" style="color:var(--accent);font-weight:900;">✉</span>
                 <span>wakyzaky@wakyzakyzaky.com</span>
               </a>
             </div>
-            <!-- Privacy note: Wakyzaky is 14. Avoid address/school names on public pages. -->
+            <p style="margin:10px 0 0; color: rgba(238,245,255,0.62); font-size: 13px; line-height:1.6;">
+              Privacy note: Zak is 14 — keep public details high-level.
+            </p>
           </article>
         </div>
       </section>
@@ -409,8 +519,8 @@
       <footer>
         <div class="container" style="padding:0;">
           <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
-            <span>© <span id="year"></span> Wakyzaky • Prosper, TX</span>
-            <span style="color:rgba(238,245,255,0.55);">Neon theme • Smooth reveals • Hover micro-interactions</span>
+            <span>© <span id="year"></span> Wakyzaky (Zak)</span>
+            <span style="color:rgba(238,245,255,0.55);">Cool animations • Meme stickers • Neon vibes</span>
           </div>
         </div>
       </footer>
@@ -420,6 +530,7 @@
   <script>
     document.documentElement.style.scrollBehavior = "smooth";
 
+    // Reveal-on-scroll
     const revealEls = Array.from(document.querySelectorAll(".reveal"));
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -429,9 +540,73 @@
         }
       });
     }, { threshold: 0.12 });
-
     revealEls.forEach(el => io.observe(el));
+
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Meme sticker generator
+    (function memeStickers(){
+      const layer = document.getElementById('memeLayer');
+      if (!layer) return;
+
+      // Respect reduced motion
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;
+
+      const sources = [
+        'assets/650269793_1331295399036239_2931007642928594930_n.png',
+        'assets/652863284_1400547025177962_2320655237684033690_n.png'
+      ];
+
+      // Tune this number for how chaotic you want it
+      const stickerCount = 14;
+
+      function rand(min, max){ return Math.random() * (max - min) + min; }
+
+      // Place stickers mostly around edges so content stays readable
+      for (let i=0; i<stickerCount; i++){
+        const img = document.createElement('img');
+        img.className = 'sticker';
+        img.src = sources[i % sources.length];
+        img.alt = '';
+
+        // Edge-biased positioning
+        const side = Math.floor(rand(0, 4));
+        let x=0, y=0;
+        if (side === 0){ // top
+          x = rand(2, 92);
+          y = rand(0, 12);
+        } else if (side === 1){ // right
+          x = rand(80, 96);
+          y = rand(6, 92);
+        } else if (side === 2){ // bottom
+          x = rand(2, 92);
+          y = rand(84, 96);
+        } else { // left
+          x = rand(0, 16);
+          y = rand(6, 92);
+        }
+
+        const rot = rand(-10, 10).toFixed(2);
+        const dur = rand(6.5, 11.5).toFixed(2);
+        const op = rand(0.22, 0.58).toFixed(2);
+
+        img.style.left = x + 'vw';
+        img.style.top = y + 'vh';
+        img.style.setProperty('--rot', rot + 'deg');
+        img.style.setProperty('--dur', dur + 's');
+        img.style.setProperty('--op', op);
+
+        layer.appendChild(img);
+      }
+
+      // Tiny parallax on mousemove (still pointer-events:none)
+      window.addEventListener('mousemove', (e) => {
+        const px = (e.clientX / window.innerWidth - 0.5) * 6;
+        const py = (e.clientY / window.innerHeight - 0.5) * 6;
+        layer.style.transform = `translate3d(${px}px, ${py}px, 0)`;
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>
