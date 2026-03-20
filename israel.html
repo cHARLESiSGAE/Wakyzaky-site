@@ -218,8 +218,14 @@
         <h2>More pictures (because yes)</h2>
         <p>We removed the gallery from the main site, but this page still gets extra visuals.</p>
         <p style="margin-top:10px;color:rgba(238,245,255,0.62);font-size:13px;line-height:1.6;">
-          Note: I’m not adding political-figure endorsements for a minor.
+          Note: This page is written as personal identity/culture, not as political persuasion.
         </p>
+        <div class="pillrow">
+          <span class="pill blue">Israel</span>
+          <span class="pill blue">culture</span>
+          <span class="pill blue">community</span>
+        </div>
+        <p style="margin-top:12px;">He admires <strong>Benjamin Netanyahu</strong>.</p>
       </article>
     </section>
 
@@ -250,15 +256,18 @@
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce) return;
 
-      const src = 'assets/652863284_1400547025177962_2320655237684033690_n.png';
-      const stickerCount = 16;
+      const sources = [
+        'assets/650269793_1331295399036239_2931007642928594930_n.png',
+        'assets/652863284_1400547025177962_2320655237684033690_n.png'
+      ];
+      const stickerCount = 20;
 
       function rand(min, max){ return Math.random() * (max - min) + min; }
 
       for (let i=0; i<stickerCount; i++){
         const img = document.createElement('img');
         img.className = 'sticker';
-        img.src = src;
+        img.src = sources[i % sources.length];
         img.alt = '';
 
         // Spread across the whole page
